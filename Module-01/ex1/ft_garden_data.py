@@ -1,16 +1,18 @@
 #!/usr/bin/env python3
 
-class Plant:
-    def __init__(self, name, height, age):
-        self.name = name
+class class_plant:
+    def __init__(self, name, height, days):
+        self.name = name.capitalize()
         self.height = height
-        self.age = age
+        self.days = days
 
 
-plant1 = Plant("Rose", 47, 4)
-plant2 = Plant("Sunflower", 3, 79)
-plant3 = Plant("Cactus", 15, 40)
+rose = class_plant("Rose", 47, 4)
+sunflower = class_plant("Sunflower", 3, 79)
+cactus = class_plant("Cactus", 15, 40)
+
+plants = [rose, sunflower, cactus]
+
 print("=== Garden Plant Registry ===")
-print(f"{plant1.name}: {plant1.height}cm, {plant1.age} days old")
-print(f"{plant2.name}: {plant2.height}cm, {plant2.age} days old")
-print(f"{plant3.name}: {plant3.height}cm, {plant3.age} days old")
+for plant in plants:
+    print(f"{plant.name}: {plant.height}cm, {plant.days} days old")
