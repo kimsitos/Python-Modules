@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-class class_plant:
+class Plant:
     def __init__(self, name, height, days):
         self.name = name.capitalize()
         self.height = height
@@ -17,12 +17,12 @@ class class_plant:
 
 
 plants = [
-    class_plant("Rose", 47, 4),
-    class_plant("Sunflower", 3, 79),
-    class_plant("Cactus", 15, 40),
-    class_plant("daisy", 5, 27),
-    class_plant("mint", 8, 7),
-    class_plant("orchid", 30, 15),
+    Plant("Rose", 47, 4),
+    Plant("Sunflower", 3, 79),
+    Plant("Cactus", 15, 40),
+    Plant("daisy", 5, 27),
+    Plant("mint", 8, 7),
+    Plant("orchid", 30, 15),
 ]
 
 number_plants = 0

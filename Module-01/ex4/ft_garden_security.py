@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-class class_plant:
+class SecurePlant:
     def __init__(self, name, height, days):
         self.__name = name.capitalize()
         self.__height = 0
@@ -18,7 +18,6 @@ class class_plant:
     def set_height(self, height):
         if height < 0:
             print(f"Invalid negative height: {height}cm")
-            return
         else:
             self.__height = height
             print(f"height updated: {self.__height}")
@@ -40,8 +39,8 @@ class class_plant:
         print(f"{self.__name}: {self.__height}cm, {self.__days} days old")
 
 
-rose = class_plant("rose", -5, 6)
-mint = class_plant("mint", 2, 0)
+rose = SecurePlant("rose", -5, 6)
+mint = SecurePlant("mint", 2, 0)
 print("=== Before ===")
 mint.get_info()
 rose.get_info()
