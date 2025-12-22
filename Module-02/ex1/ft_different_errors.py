@@ -45,7 +45,6 @@ def test_error_types():
     - Shows how multiple exception types can be captured using a single
       except block.
     """
-
     try:
         int("abc")
     except ValueError:

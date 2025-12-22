@@ -1,5 +1,22 @@
 #!/usr/bin/env python3
 def check_temperature(temp_str):
+    """
+    Check if a given temperature value is suitable for plants.
+
+    The function receives a string representing a temperature, attempts to
+    convert it to an integer, and validates whether it falls within the
+    acceptable range for plants (0°C to 40°C inclusive).
+
+    If the value is invalid or out of range, an error message is printed.
+    If the temperature is valid, a confirmation message is printed and the
+    temperature is returned as an integer.
+
+    Args:
+        temp_str (str): Temperature value provided as a string.
+
+    Returns:
+        int | None: The temperature as an integer if valid, otherwise None.
+    """
     try:
         temp_int = int(temp_str)
     except ValueError:
