@@ -21,7 +21,7 @@ def test_plant_checks():
     Tests the plant health checks with valid and invalid values.
     """
     print("=== Valid plant ===")
-    check_plant_health("cactus", 5, 7)
+    print(check_plant_health("cactus", 5, 7))
 
     print("\n=== Invalid plant ===")
     try:
