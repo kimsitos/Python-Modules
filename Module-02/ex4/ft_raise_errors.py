@@ -13,7 +13,7 @@ def check_plant_health(plant_name, water_level, sunlight_hours):
         raise ValueError("Please, insert a reasonable water level")
     if sunlight_hours < 2 or sunlight_hours > 12:
         raise ValueError("The sunlight hours is not reasonable")
-    print("All good, enjoy!")
+    return "All good, enjoy!"
 
 
 def test_plant_checks():
