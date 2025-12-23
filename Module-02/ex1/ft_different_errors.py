@@ -1,20 +1,5 @@
 #!/usr/bin/env python3
 
-"""
-This exercise demonstrates common Python exception types and how to handle them
-
-It includes examples of:
-- ValueError
-- ZeroDivisionError
-- FileNotFoundError
-- KeyError
-
-The exercise shows how errors can be triggered intentionally, how each one can
-be captured individually, how multiple exceptions can be handled in a single
-except block, and how the program continues running after handling errors.
-"""
-
-
 def garden_operations():
     """
     Trigger common Python exceptions intentionally.

@@ -1,17 +1,5 @@
 #!/usr/bin/env python3
 
-"""
-This exercise demonstrates the use of custom exceptions for
-handling garden-related errors.
-
-It defines a base exception (GardenError) and more specific
-exceptions (PlantError and WaterError) that inherit from it.
-The module also shows how to raise and catch these custom
-exceptions, including how catching GardenError also captures
-all related garden errors.
-"""
-
-
 class GardenError(Exception):
     """
     Base exception class for garden-related errors.

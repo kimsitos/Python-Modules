@@ -1,13 +1,5 @@
 #!/usr/bin/env python3
 
-"""
-Simple garden watering system.
-
-Demonstrates the use of try/except/finally to ensure the watering system
-is always closed, even when an error occurs.
-"""
-
-
 def water_plants(plant_list):
 
     """
