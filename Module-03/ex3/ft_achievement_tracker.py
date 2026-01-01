@@ -24,11 +24,11 @@ print("Total unique achievements:", len(achievements_unique))
 print()
 
 print("Common to all players:", alice.intersection(bob, charlie))
-rare_achievemnts = {
+rare_achievemnts = set(
     alice.difference(bob, charlie)
     | bob.difference(alice, charlie)
     | charlie.difference(alice, bob)
-    }
+    )
 print("Rare achievemnts (1 player) =", rare_achievemnts)
 print()
 
