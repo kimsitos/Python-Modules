@@ -1,15 +1,15 @@
-alice = {
+alice = set((
     "first kill", "treasure_hunter",
     "level_10", "treasure_hunter", "speed_demon"
-    }
-bob = {
+    ))
+bob = set((
     "first kill", "level_10",
     "boss_slayer", "collector"
-    }
-charlie = {
+    ))
+charlie = set((
     "level_10", "treasure_hunter",
     "boss_slayer", "speed_demon", "perfectionist"
-    }
+    ))
 
 print("=== Achivement Tracker System ===\n")
 print("Player alice achivements:", alice)
