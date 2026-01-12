@@ -5,7 +5,7 @@ def print_inventory(user: str, inventory: dict):
     count = 0
     categories = {}
 
-    print(f"=== {user}'s Inventory ===")
+    print(f"\n=== {user}'s Inventory ===")
     for item, info in inventory[user].items():
         print(
             f"{item} ({info['class']}, {info['rarity']}) "
@@ -30,12 +30,35 @@ def print_inventory(user: str, inventory: dict):
 
 def transaction(sender: str, receiver: str, item: str,
                 quantity: int, inventory: dict):
-    item_send = inventory[sender][item]
 
-    if item_send['quantity'] < quantity:
+    print(f"\n=== {sender} gives {receiver} {quantity} {item} ===")
+    item_send = inventory[sender].get(item)
+    if item_send['quantity'] < quantity or not item_send:
         print("Transaction failed")
         return
-    print("lol")
+
+    inventory[sender][item]['quantity'] -= quantity
+    if item in inventory[receiver]:
+        inventory[receiver][item]['quantity'] += quantity
+    else:
+        inventory[receiver][item] = {
+            'class': item_send['class'],
+            'rarity': item_send['rarity'],
+            'quantity': quantity,
+            'value': item_send['value']
+        }
+    print("Trasaction succesfully!")
+
+
+def add_item(user: str, item: str, item_class: str, rarity: str,
+                quantity: int, value:int, inventory: dict):
+    inventory[user][item] = {
+        'class': item_class,
+        'rarity': rarity,
+        'quantity': quantity,
+        'value': value
+    }
+
 
 
 inventory = {
@@ -59,8 +82,12 @@ inventory = {
             'value': 200
             }
     },
-    'Bob': {}
+    'Bob': {
+        
+    }
 }
 
-print_inventory("Bob", inventory)
-transaction('Alice', 'Bob', 'potion', 8, inventory)
+print_inventory("Alice", inventory)
+add_item('Bob', 'ring', 'armor', 'epic', 2, 6000, inventory)
+transaction('Alice', 'Bob', 'potion', 2, inventory)
+print_inventory('Bob', inventory)
