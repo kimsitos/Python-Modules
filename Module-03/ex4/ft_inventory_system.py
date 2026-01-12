@@ -37,6 +37,7 @@ def transaction(sender: str, receiver: str, item: str,
         return
     print("lol")
 
+
 inventory = {
     'Alice': {
         'sword': {
