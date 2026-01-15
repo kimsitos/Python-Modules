@@ -1,15 +1,22 @@
-def fibonacci():
+def fibonacci(index):
     a = 0
     b = 1
-    while True:
+    i = 0
+    while i <= index:
         yield a
         a, b = b, a + b
+        i += 1
 
-fib = fibonacci()
+fib = fibonacci(27)
 
+print("Fibonacci")
 count = 0
 for f in fib:
-    if count == 90:
-        break
-    print(f, end=', ')
-    count += 1
+    if f % 2 == 0:
+        print(f, end=' ')
+
+
+print("\n\nPower cube")
+powercube = iter([x * x for x in range (10)])
+for x in range(10):
+    print(next(powercube), end=' ')
