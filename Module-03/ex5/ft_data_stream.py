@@ -7,6 +7,7 @@ def fibonacci(index):
         a, b = b, a + b
         i += 1
 
+
 fib = fibonacci(27)
 
 print("Fibonacci")
@@ -17,6 +18,6 @@ for f in fib:
 
 
 print("\n\nPower cube")
-powercube = iter([x * x for x in range (10)])
+powercube = iter([x * x for x in range(10)])
 for x in range(10):
     print(next(powercube), end=' ')

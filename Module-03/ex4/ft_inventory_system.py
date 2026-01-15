@@ -51,14 +51,13 @@ def transaction(sender: str, receiver: str, item: str,
 
 
 def add_item(user: str, item: str, item_class: str, rarity: str,
-                quantity: int, value:int, inventory: dict):
+             quantity: int, value: int, inventory: dict):
     inventory[user][item] = {
         'class': item_class,
         'rarity': rarity,
         'quantity': quantity,
         'value': value
     }
-
 
 
 inventory = {
@@ -83,7 +82,7 @@ inventory = {
             }
     },
     'Bob': {
-        
+
     }
 }
 
