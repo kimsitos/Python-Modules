@@ -19,7 +19,7 @@ players = {
         'total_score': 9935,
         'favorite_mode': 'casual',
         'achievements': set((
-            "first kill", "treasure_hunter"
+            "first kill",
             ))
         }
 }
