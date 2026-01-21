@@ -33,8 +33,8 @@ class NumericProcessor(DataProcessor):
         if not self.result:
             print("No output generated")
         else:
-            print(f"Processed {self.total_numbers} numeric values,"
-                  f"sum={self.sum},avg={self.sum/self.total_numbers}")
+            print(f"Processed {self.total_numbers} numeric values, "
+                  f"sum={self.sum}, avg={self.sum/self.total_numbers}")
 
 
 class TextProcessor(DataProcessor):
@@ -113,3 +113,17 @@ log = LogProcessor()
 log.process("ERROR: Connection timeout")
 log.validate()
 log.output()
+
+print("\n=== Polymorphic Processing Demo ===")
+print("Processing multiple data types through same interface...")
+
+data = (NumericProcessor(), TextProcessor(), LogProcessor())
+to_process = [[1, 2, 3], "hello world :)", "INFO: connection lost"]
+i = 0
+
+for d in data:
+    print(f"Result {i + 1}: ", end='')
+    d.process(to_process[i])
+    d.validate()
+    d.output()
+    i += 1
