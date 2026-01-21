@@ -20,21 +20,31 @@ def test_plant_checks():
     """
     Tests the plant health checks with valid and invalid values.
     """
-    print("=== Valid plant ===")
+
+    print("=== Garden Plant Health Checker ===")
+
+    print("\nTesting good values...")
     print(check_plant_health("cactus", 5, 7))
 
-    print("\n=== Invalid plant ===")
+    print("\nTesting empty plant...")
     try:
         check_plant_health(" ", 5, 4)
     except ValueError as error:
         print("Caught error:", error)
 
+    print("\nTesting bad water level...")
     try:
         check_plant_health("rose", 0, 7)
     except ValueError as error:
         print("Caught error:", error)
 
+    print("\nTesting bad sunlight hours...")
     try:
         check_plant_health("violet", 6, 18)
     except ValueError as error:
         print("Caught error:", error)
+
+    print("\nAll error raising test completed!")
+
+
+test_plant_checks()

@@ -26,8 +26,14 @@ def test_watering_system():
     Tests the watering system with valid and invalid data.
     """
 
-    print("=== Valid plant ===")
+    print("=== Garden Watering System ===")
+    print("\nTesting normal watering...")
     water_plants(["rose", "tulip", "sunflower"])
+    print("Watering completed successfully!")
 
-    print("\n=== Invalid plant ===")
+    print("\nTesting with error...")
     water_plants(["rose", 59, "tulip"])
+    print("\nCleanup always happens, even with errors!")
+
+
+test_watering_system()

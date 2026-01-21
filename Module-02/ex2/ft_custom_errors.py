@@ -42,4 +42,21 @@ def valid_garden(heigh, water):
         print(f"Caught a Garden Error: {error}")
 
 
+print("=== Custom Garden Errors Demo ===")
+
+print("\nTesting PlantError...")
+try:
+    valid_height(-6)
+except PlantError as e:
+    print("Caught PlantError:", e)
+
+print("\nTesting PlantError...")
+try:
+    valid_water(-6)
+except WaterError as e:
+    print("Caught WaterError:", e)
+
+print("\nTesting catching all garden errors")
 valid_garden(-2, 1)
+
+print("\nAll custom error types work correctly!")
