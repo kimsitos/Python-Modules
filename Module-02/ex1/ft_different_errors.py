@@ -30,28 +30,38 @@ def test_error_types():
     - Shows how multiple exception types can be captured using a single
       except block.
     """
+    print("=== Garden Error Types Demo ===")
+
+    print("\nTesting ValueError...")
     try:
         int("abc")
-    except ValueError:
-        print("Insert a valid value")
+    except ValueError as e:
+        print("Caught ValueError", e)
 
+    print("\nTesting ZeroDivisionError...")
     try:
         1 / 0
-    except ZeroDivisionError:
-        print("Please, do not divide by zero")
+    except ZeroDivisionError as e:
+        print("Caught ZeroDivisionError", e)
 
+    print("\nTesting FileNotFoundError...")
     try:
         open("NotAFile.txt")
-    except FileNotFoundError:
-        print("File not found")
+    except FileNotFoundError as e:
+        print("Caught FileNotFound:", e)
 
+    print("\nTesting KeyError...")
     try:
         {"value_01": "hello"}["Error_Key"]
-    except KeyError:
-        print("The key does not exist in the dicctionary")
+    except KeyError as e:
+        print("Caught KeyError:", e)
 
+    print("\nTesting Multiple errors together...")
     try:
         1 / 0
         int("hello")
     except (ZeroDivisionError, ValueError):
-        print("ZeroDivisionError or ValueError found")
+        print("Caught an error, but program continues!")
+
+
+test_error_types()
