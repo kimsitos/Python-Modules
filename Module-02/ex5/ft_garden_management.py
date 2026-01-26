@@ -27,7 +27,7 @@ class GardenManager:
 
     def add_plant(self, plant_name, water_level, sunlight_hours):
         """Initialize a plant and validate its parameters."""
-        if not plant_name.strip():
+        if not plant_name:
             raise GardenError("Plant name empty")
 
         if water_level < 1 or water_level > 10:
