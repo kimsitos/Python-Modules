@@ -68,4 +68,3 @@ print("Stage 3: Output formatting and delivery")
 print("\n=== Multi-Format Data Processing ===")
 
 print("\nProcessing JSON data through pipeline...")
-
