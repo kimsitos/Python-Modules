@@ -1,31 +1,24 @@
 #!/usr/bin/env python3
 
-# -------------------
-# NECESITA REVISION
-# -------------------
-
 import math
 
 
-def parsing(position: tuple) -> tuple:
-
-    temp = position[1:-1]
-    coordinate = temp.split(',')
+def parsing(position: str) -> tuple:
+    coordinates = tuple()
+    try:
+        for num in position.split(','):
+            coordinates = coordinates + (int(num),)
+    except ValueError as e:
+        print("Error parsing coordinates:", e)
+        return
 
     i = 0
-    for number in coordinate:
+    for number in coordinates:
         i += 1
     if i != 3:
         print("Expected 3 numbers, recibed", i)
         return
-
-    try:
-        return tuple((
-            float(coordinate[0]),
-            float(coordinate[1]),
-            float(coordinate[2])))
-    except ValueError:
-        print("Error parsing. Invalid format for int")
+    return coordinates
 
 
 def distance(start: tuple, end: tuple):
@@ -35,20 +28,25 @@ def distance(start: tuple, end: tuple):
         (end[2]-start[2])**2)
 
 
-position_start = tuple((0, 123, 4))
+print("=== Game Coordinate System ===\n")
+
+position_start = tuple((10, 20, 5))
 position_end = tuple((0, 0, 0))
+print("Position created:", position_start)
+print(f"Distance between{position_end} and {position_start}:",
+      distance(position_start, position_end))
 
-if position_start:
-    print("Unpacking demonstration:")
-    print(
-        f"Player at x={position_start[0]},",
-        f"y={position_start[1]},",
-        f"z={position_start[2]}"
-        )
+print("\nParsing coordinaates: \"3,4,0\"")
+position_start = parsing("3,4,0")
+print("Parsed position:", position_start)
+print(f"Distance between{position_end} and {position_start}:",
+      distance(position_start, position_end))
 
-    print(
-        f"Final coordinates x={position_end[0]},",
-        f"y={position_end[1]},",
-        f"z={position_end[2]}"
-    )
-    print(distance(position_start, position_end))
+print("\nParsing invalid coordinates: \"abc,def,ghi\"")
+parsing("abc,def,ghi")
+print("\nUnpacking demonstration:")
+(x, y, z) = position_start
+print(f"Player at x={x},",
+      f"y={y},",
+      f"z={z}")
+
