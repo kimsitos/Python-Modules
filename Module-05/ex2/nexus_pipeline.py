@@ -72,8 +72,8 @@ class StreamAdapter(ProcessingPipeline):
 
 # Nexus Manager
 class NexusManager:
-    def process_pipeline(processing: ProcessingPipeline,
-                         data: Any, stream_processing, any) -> None:
+    def process_pipeline(self, processing: ProcessingPipeline,
+                         data: Any) -> None:
         if isinstance(processing, ProcessingPipeline):
             processing.process(data)
 
@@ -97,26 +97,35 @@ print("\n=== Multi-Format Data Processing ===")
 
 print("\nProcessing JSON data through pipeline...")
 json = JSONAdapter("JSONAdapter_0001", stream_processing)
-data = dict(sensor='Temp', value=25.6, unit='C')
-print("Input:", data)
+datajson = dict(sensor='Temp', value=25.6, unit='C')
+print("Input:", datajson)
 print("Transform: Enriched with metadata and validation")
 print("Output:", end=' ')
-json.process(data)
+json.process(datajson)
 
 print("\nProcessing CSV data through same pipeline...")
 csv = CSVAdapter("CSVAdapter_0001", stream_processing)
-data = 'user,action,timestamp'
+datacsv = 'user,action,timestamp'
 print("Transform: Parsed and structured data")
-print("Input:", data)
+print("Input:", datacsv)
 print("Output:", end=' ')
-csv.process(data)
+csv.process(datacsv)
 
 print("\nProcessing Stream data through same pipeline...")
 stream = StreamAdapter("StreamAdapter_0001", stream_processing)
-data = 'Real-time sensor stream'
-print('Input', data)
+datastream = 'Real-time sensor stream'
+print('Input', datastream)
 print("Transform: Aggregated and filtered")
 print("Output:", end=' ')
-stream.process(data)
+stream.process(datastream)
 
+all_streams = [json, csv, stream]
+all_data = [datajson, datacsv, datastream]
 
+print("===Pipeline Chaining Demo===")
+print("Pipeline A -> Pipeline B -> Pipeline C")
+print("Data flow: Raw -> Processed -> Analyzed -> Stored\n")
+
+i = 0
+for streampipe in all_streams:
+    nexus.process_pipeline(streampipe, all_data[1])
