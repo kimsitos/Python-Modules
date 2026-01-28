@@ -1,4 +1,4 @@
-from typing import Any, List
+from typing import Any, List, Dict
 
 
 # Processing Stages
@@ -8,7 +8,7 @@ class InputStage:
 
 
 class TransformStage:
-    def process(self, *data: Any) -> Any:
+    def process(self, *data: Any) -> List:
         final_data = []
         for stage in data:
             final_data.append(stage)
@@ -22,49 +22,101 @@ class OutputStage:
 
 # Base Class
 class ProcessingPipeline():
-    def __init__(self, pipeline_id: str) -> None:
+    def __init__(self, stages: list, pipeline_id: str = "GenericID") -> None:
         self.pipeline_id = pipeline_id
+        self.stages = stages
 
-    def process(self, stages: List) -> Any:
-        print(stages)
+    def process(self, data: Any) -> None:
+        try:
+            for stage in self.stages:
+                data = stage.process(data)
+        except Exception:
+            print("Something went wrong")
 
 
 # Data Adapter
 class JSONAdapter(ProcessingPipeline):
-    def __init__(self, pipeline_id: str) -> None:
-        super().__init__(pipeline_id)
+    def __init__(self, stages: list, pipeline_id: str = "GenJSONID") -> None:
+        super().__init__(pipeline_id, stages)
+
+    def process(self, data: Dict) -> None:
+        if (isinstance(data, dict) and
+           'sensor' in data and 'value' in data and 'unit' in data):
+            print(f"Processed {data['sensor']} reading: "
+                  f"{data['value']}{data['unit']}")
+        else:
+            print("Need a dictionary type with 'sensor', 'value' and 'unit'")
 
 
 class CSVAdapter(ProcessingPipeline):
-    def __init__(self, pipeline_id: str) -> None:
-        super().__init__(pipeline_id)
+    def __init__(self, stages: list, pipeline_id: str = "GenCSVID") -> None:
+        super().__init__(pipeline_id, stages)
+
+    def process(self, data: str) -> None:
+        values = 1
+        if isinstance(data, str):
+            for i in data:
+                values += 1 if i == ',' else 0
+            print(values, "values processed")
+        else:
+            print("Need a string type")
 
 
 class StreamAdapter(ProcessingPipeline):
-    def __init__(self, pipeline_id: str) -> None:
-        super().__init__(pipeline_id)
+    def __init__(self, stages: list, pipeline_id: str = "GenSrteamID") -> None:
+        super().__init__(pipeline_id, stages)
+
+    def process(self, data: Any) -> None:
+        super().process(data)
 
 
 # Nexus Manager
 class NexusManager:
-    def hello() -> None:
-        print("")
+    def process_pipeline(processing: ProcessingPipeline,
+                         data: Any, stream_processing, any) -> None:
+        if isinstance(processing, ProcessingPipeline):
+            processing.process(data)
 
 
 # Testing
 print("=== CODE NEXUS - ENTERPRISE PIPELINE SYSTEM ===")
 
 print("\nInitializing Nexus Manager...")
+nexus = NexusManager()
 
 stream_processing = []
 print("\nCreating Data Processing Pipeline...")
-stream_processing.append(InputStage)
+stream_processing.append(InputStage())
 print("Stage 1: Input validation and parsing")
-stream_processing.append(TransformStage)
+stream_processing.append(TransformStage())
 print("Stage 2: Data transformation and enrichment")
-stream_processing.append(OutputStage)
+stream_processing.append(OutputStage())
 print("Stage 3: Output formatting and delivery")
 
 print("\n=== Multi-Format Data Processing ===")
 
 print("\nProcessing JSON data through pipeline...")
+json = JSONAdapter("JSONAdapter_0001", stream_processing)
+data = dict(sensor='Temp', value=25.6, unit='C')
+print("Input:", data)
+print("Transform: Enriched with metadata and validation")
+print("Output:", end=' ')
+json.process(data)
+
+print("\nProcessing CSV data through same pipeline...")
+csv = CSVAdapter("CSVAdapter_0001", stream_processing)
+data = 'user,action,timestamp'
+print("Transform: Parsed and structured data")
+print("Input:", data)
+print("Output:", end=' ')
+csv.process(data)
+
+print("\nProcessing Stream data through same pipeline...")
+stream = StreamAdapter("StreamAdapter_0001", stream_processing)
+data = 'Real-time sensor stream'
+print('Input', data)
+print("Transform: Aggregated and filtered")
+print("Output:", end=' ')
+stream.process(data)
+
+
