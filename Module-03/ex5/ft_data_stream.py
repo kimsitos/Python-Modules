@@ -1,3 +1,8 @@
+
+# -------------------
+# NECESITA REVISION
+# -------------------
+
 def fibonacci(index):
     a = 0
     b = 1

@@ -1,17 +1,18 @@
-from typing import Dict, Any, List
+from typing import Dict, List, Optional, Any
+from abc import ABC, abstractclassmethod
 
 
 # Class
-class DataStream:
+class DataStream(ABC):
     def __init__(self, ID: str) -> Any:
         self.ID = ID
+    
+    @abstractclassmethod
+    def process_batch(self, data_batch: List[Any]) -> str:
+        return str(data)
 
-    def process_batch(self, data: Any) -> None:
-        self.num_events = 0
-        for _ in data:
-            self.num_events += 1
-
-    def analysis(self) -> None:
+    def filter_data(self, data_batch: List[Any],
+                    criteria: Optional[str] = None) -> List[Any]:
         print(f"Data analysis {self.num_events}")
 
 
@@ -20,8 +21,8 @@ class SensorStream(DataStream):
         super().__init__(ID)
         self.type = "Environmental Data"
 
-    def process_batch(self, data: Dict) -> None:
-        super().process_batch(data)
+    def process_batch(self, data_batch: List[Any]) -> None:
+        super().process_batch(data_batch)
         try:
             self.temperature = data['temp']
         except KeyError:
@@ -37,8 +38,8 @@ class TransactionStream(DataStream):
         super().__init__(ID)
         self.type = "Financial Data"
 
-    def process_batch(self, data: Dict) -> None:
-        super().process_batch(data)
+    def process_batch(self, data_batch: List[Any]) -> None:
+        super().process_batch(data_batch)
         self.net = 0
         for transaction, quantity in data:
             if transaction == 'buy':
@@ -56,8 +57,8 @@ class EventStream(DataStream):
         super().__init__(ID)
         self.type = "System Events"
 
-    def process_batch(self, data: List) -> None:
-        super().process_batch(data)
+    def process_batch(self, data_batch: List[Any]) -> None:
+        super().process_batch(data_batch)
         self.num_error = 0
         for e in data:
             if e == 'error':

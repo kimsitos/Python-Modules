@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 
-import sys
+# -------------------
+# NECESITA REVISION
+# -------------------
+
 import math
 
 
-def parsing(position) -> tuple:
-    if position[0] != '(' or position[-1] != ')':
-        print("Invalid format.")
-        return
+def parsing(position: tuple) -> tuple:
 
     temp = position[1:-1]
     coordinate = temp.split(',')
@@ -35,16 +35,8 @@ def distance(start: tuple, end: tuple):
         (end[2]-start[2])**2)
 
 
-try:
-    position_start = parsing(sys.argv[1])
-except IndexError:
-    print("Please insert coordinates")
-    position_start = None
-try:
-    position_end = parsing(sys.argv[2])
-except IndexError:
-    position_end = tuple((0, 0, 0))
-
+position_start = tuple((0, 123, 4))
+position_end = tuple((0, 0, 0))
 
 if position_start:
     print("Unpacking demonstration:")

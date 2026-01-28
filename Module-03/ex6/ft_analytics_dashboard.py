@@ -25,12 +25,12 @@ players = {
 }
 
 print("\n=== List Comprehension Examples ===")
-high_scores = list(set(
-    user for user in players.keys() if players[user]['total_score'] > 2000))
+high_scores = list(
+    user for user in players.keys() if players[user]['total_score'] > 2000)
 print("High scores (>20000):", high_scores)
 
-duplicated_scores = list(user['total_score'] * 2 for user in players.values())
-print("Duplicated scores:", duplicated_scores)
+scores_doubled = list(user['total_score'] * 2 for user in players.values())
+print("Scores doubled:", scores_doubled)
 
 
 print("\n=== Dictionary Comprehension Examples ===")

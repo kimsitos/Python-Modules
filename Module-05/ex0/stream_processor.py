@@ -1,78 +1,73 @@
-from typing import Any, List
+from typing import Any
+from abc import ABC, abstractclassmethod
 
 
 # Class
-class DataProcessor:
-    def process(self, data: Any) -> None:
-        data = data
+class DataProcessor(ABC):
+    @abstractclassmethod
+    def process(self, data: Any) -> str:
+        return str(data)
 
-    def validate(self) -> None:
-        print(f"Data {self.data} ok")
+    @abstractclassmethod
+    def validate(self, data: Any) -> bool:
+        return False if data == 'Error' else True
 
-    def format_output(self) -> None:
-        print("output", self.data)
+    def format_output(self, result: str) -> str:
+        print("output", result)
 
 
 class NumericProcessor(DataProcessor):
-    def process(self, data: List[int]) -> None:
+    def process(self, data: Any) -> str:
+        self.processed_numbers = 0
         self.sum = 0
-        self.total_numbers = 0
+        self.avr = 0
+        if not data:
+            return 'Error'
         try:
-            for number in data:
-                if not (number >= 0 and number <= 9):
-                    break
-                else:
-                    self.sum += number
-                    self.total_numbers += 1
+            for num in data:
+                self.sum += num
+                self.processed_numbers += 1
+            self.avr = self.sum / self.processed_numbers
         except TypeError:
-            self.sum = None
-            self.total_numbers = None
+            return "Error"
+        return "Good"
 
-    def validate(self) -> None:
-        self.result = True
-        if not self.sum and not self.total_numbers:
-            self.result = False
+    def validate(self, data: any) -> bool:
+        super().validate(data)
 
-    def format_output(self) -> None:
-        if not self.result:
-            print("No output generated")
-        else:
-            print(f"Processed {self.total_numbers} numeric values, "
-                  f"sum={self.sum}, avg={self.sum/self.total_numbers}")
+    def format_output(self, result: str) -> str:
+        if result == 'Good':
+            return (f"Processed {self.processed_numbers} "
+                    f"numeric values, sum={self.sum}, avr={self.avr}")
+        return "Error validating data, please a valid data"
 
 
 class TextProcessor(DataProcessor):
-    def process(self, data: str) -> None:
-        self.words = 0
+    def process(self, data: Any) -> str:
+        self.words = 1
         self.chars = 0
-        try:
-            for c in data:
-                if not ((c >= 'a' and c <= 'z') or
-                        (c >= 'A' and c <= 'Z') or c == ' '):
-                    break
-                else:
-                    if c == ' ':
-                        self.words += 1
-                    self.chars += 1
+        if not data:
+            return 'Error'
 
-        except TypeError:
-            self.words = None
-            self.chars = None
+        for c in data:
+            if not (c >= ' ' and c <= '}'):
+                return 'Error'
+            if c == ' ':
+                self.words += 1
+            self.chars += 1
+        return 'Good'
 
-    def validate(self) -> None:
-        self.result = True
-        if not self.words and not self.chars:
-            self.result = False
+    def validate(self, data: any) -> bool:
+        super().validate(data)
 
-    def format_output(self) -> None:
-        if not self.result:
-            print("No format_output generated")
-        else:
-            print(f"Processed text {self.chars} characters {self.words} words")
+    def format_output(self, result: str) -> str:
+        if result == 'Good':
+            return f"Processed text: {self.chars}, {self.words} words"
+        return "Error validating data, please a valid data"
 
 
 class LogProcessor(DataProcessor):
-    def process(self, data: str) -> None:
+    def process(self, data: Any) -> str:
         error_types = ["ERROR", "INFO"]
         for error in error_types:
             if error in data:
@@ -85,17 +80,15 @@ class LogProcessor(DataProcessor):
         if not self.error_type:
             self.error_type = None
             self.message = None
+            return 'Error'
+        return 'Good'
 
-    def validate(self) -> None:
-        self.result = True
-        if not self.error_type and not self.message:
-            self.result = False
+    def validate(self, data: any) -> bool:
+        super().validate(data)
 
-    def format_output(self) -> None:
-        if self.result:
-            print(f"[{self.error_type}] MESSAGE: {self.message}")
-        else:
-            print("No output generated")
+    def format_output(self, result: str) -> str:
+        if result == 'Good':
+            return f""
 
 
 # Testing
@@ -103,32 +96,43 @@ print("=== CODE NEXUS - DATA PROCESSOR FOUNDATION ===")
 
 print("\nInitializing Numeric Processor...")
 numeric = NumericProcessor()
-numeric.process([2, 5, 1])
-numeric.validate()
-numeric.format_output()
+print("Processing data: [1, 2, 3, 4, 5]")
+num_res = numeric.process([1, 2, 3, 4, 5])
+if numeric.validate(num_res):
+    print("Validation: Numeric data verified")
+else:
+    print("Cant verify all the numbers")
+print("Output:", numeric.format_output(num_res))
 
 print("\nInitializing Text Processor...")
 text = TextProcessor()
-text.process("hello world")
-text.validate()
-text.format_output()
+print("Processing data: \"Hello Nexus World\"")
+text_res = text.process("Hello Nexus World")
+if text.validate(text_res):
+    print("Validation: Numeric data verified")
+else:
+    print("Cant verify all the numbers")
+print("Output:", text.format_output(text_res))
 
 print("\nInitializing Log Processor...")
 log = LogProcessor()
-log.process("ERROR: Connection timeout")
-log.validate()
-log.format_output()
+log_res = log.process("ERROR: Connection timeout")
+if log.validate(log_res):
+    print("Validation: Numeric data verified")
+else:
+    print("Cant verify all the numbers")
+log.format_output(log_res)
 
-print("\n=== Polymorphic Processing Demo ===")
-print("Processing multiple data types through same interface...")
+# print("\n=== Polymorphic Processing Demo ===")
+# print("Processing multiple data types through same interface...")
 
-data = (NumericProcessor(), TextProcessor(), LogProcessor())
-to_process = [[1, 2, 3], "hello world :)", "INFO: connection lost"]
-i = 0
+# data = (NumericProcessor(), TextProcessor(), LogProcessor())
+# to_process = [[1, 2, 3], "hello world ", "INFO: connection lost"]
+# i = 0
 
-for d in data:
-    print(f"Result {i + 1}: ", end='')
-    d.process(to_process[i])
-    d.validate()
-    d.format_output()
-    i += 1
+# for d in data:
+#     print(f"Result {i + 1}: ", end='')
+#     d.process(to_process[i])
+#     d.validate()
+#     d.format_output()
+#     i += 1
