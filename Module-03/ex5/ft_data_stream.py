@@ -14,7 +14,8 @@ def process_events(num_events):
             'player': players[id_event % len(players)],
             'event_type': events_type[id_event % (len(events_type))],
             'data': {
-                'level': id_event + len(players) + (id_event % len(events_type)),
+                'level': id_event + len(players) + (
+                    id_event % len(events_type)),
                 'score_delta': -25,
                 'zone': 'pixel_zone_5'
             }
@@ -25,22 +26,39 @@ def process_events(num_events):
 def fibonacci(index):
     a = 0
     b = 1
-    i = 0
-    while i <= index:
+    for _ in range(index):
         yield a
         a, b = b, a + b
-        i += 1
+        index -= 1
 
 
-game_events = process_events(138)
-fib = fibonacci(27)
+def prime_numbers(index):
+    def is_prime(num):
+        for n in range(2, num):
+            if num % n == 0:
+                return False
+        return True
 
+    a = 2
+    while index:
+        if is_prime(a):
+            yield a
+            index -= 1
+        a += 1
+
+
+game_events = process_events(12)
+fib = fibonacci(10)
+prime = prime_numbers(5)
+
+total_events = 0
 treasures_found = 0
 monsters_killed = 0
 deaths = 0
 level_ups = 0
+print("=== Game Data Stream Processor ===\n")
 
-print("Processing 100 game events")
+print("Processing 100 game events\n")
 for ev in game_events:
     print(f"Event {ev['id']}: Player {ev['player']} "
           f"(level {ev['data']['level']}) {ev['event_type']}")
@@ -53,17 +71,20 @@ for ev in game_events:
             deaths += 1
         case 'leveled up':
             level_ups += 1
+    total_events += 1
 
-print(treasures_found, monsters_killed, deaths, level_ups)
+print("\n=== Stream Analytics ===")
+print("Total events processed:", total_events)
+print("Treasures events:", treasures_found)
+print("Monsters events:", monsters_killed)
+print('Deaths events:', deaths)
+print('Level-up events:', level_ups)
 
-print("Fibonacci")
-count = 0
+print("\n=== Generator Demonstration ===")
+print("Fibonacci sequence (first 10):", end=' ')
 for f in fib:
-    if f % 2 == 0:
-        print(f, end=' ')
+    print(f, end=' ')
 
-
-print("\n\nPower cube")
-powercube = iter([x * x for x in range(10)])
-for x in range(10):
-    print(next(powercube), end=' ')
+print("\nPrime numbers (first 5):", end=' ')
+for p in prime:
+    print(p, end=' ')
