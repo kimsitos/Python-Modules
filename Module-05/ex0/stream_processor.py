@@ -10,7 +10,9 @@ class DataProcessor(ABC):
 
     @abstractclassmethod
     def validate(self, data: Any) -> bool:
-        return False if data == 'Error' else True
+        if data == 'Error':
+            return False
+        return True
 
     def format_output(self, result: str) -> str:
         print("output", result)
@@ -33,7 +35,9 @@ class NumericProcessor(DataProcessor):
         return "Good"
 
     def validate(self, data: any) -> bool:
-        super().validate(data)
+        if data == 'Error':
+            return False
+        return True
 
     def format_output(self, result: str) -> str:
         if result == 'Good':
@@ -58,7 +62,9 @@ class TextProcessor(DataProcessor):
         return 'Good'
 
     def validate(self, data: any) -> bool:
-        super().validate(data)
+        if data == 'Error':
+            return False
+        return True
 
     def format_output(self, result: str) -> str:
         if result == 'Good':
@@ -69,6 +75,7 @@ class TextProcessor(DataProcessor):
 class LogProcessor(DataProcessor):
     def process(self, data: Any) -> str:
         error_types = ["ERROR", "INFO"]
+        self.error_type = None
         for error in error_types:
             if error in data:
                 self.error_type = error
@@ -78,17 +85,18 @@ class LogProcessor(DataProcessor):
                 self.message = data[j + 2::]
                 break
         if not self.error_type:
-            self.error_type = None
             self.message = None
             return 'Error'
         return 'Good'
 
     def validate(self, data: any) -> bool:
-        super().validate(data)
+        if data == 'Error':
+            return False
+        return True
 
     def format_output(self, result: str) -> str:
         if result == 'Good':
-            return f""
+            return f"[{self.error_type}] INFO level detected: {self.message}"
 
 
 # Testing
@@ -121,18 +129,20 @@ if log.validate(log_res):
     print("Validation: Numeric data verified")
 else:
     print("Cant verify all the numbers")
-log.format_output(log_res)
+print('Output:', log.format_output(log_res))
 
-# print("\n=== Polymorphic Processing Demo ===")
-# print("Processing multiple data types through same interface...")
+print("\n=== Polymorphic Processing Demo ===")
+print("Processing multiple data types through same interface...")
 
-# data = (NumericProcessor(), TextProcessor(), LogProcessor())
-# to_process = [[1, 2, 3], "hello world ", "INFO: connection lost"]
-# i = 0
+data = (NumericProcessor(), TextProcessor(), LogProcessor())
+to_process = [[1, 2, 3], "hello world ", "INFO: connection lost"]
+i = 0
 
-# for d in data:
-#     print(f"Result {i + 1}: ", end='')
-#     d.process(to_process[i])
-#     d.validate()
-#     d.format_output()
-#     i += 1
+for d in data:
+    print(f"Result {i + 1}: ", end='')
+    res = d.process(to_process[i])
+    d.validate(res)
+    print(d.format_output(res))
+    i += 1
+
+print("Foundation systems online. Nexus ready for advanced streams")

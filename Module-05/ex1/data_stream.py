@@ -1,12 +1,12 @@
-from typing import Dict, List, Optional, Any
+from typing import List, Optional, Any
 from abc import ABC, abstractclassmethod
 
 
 # Class
 class DataStream(ABC):
-    def __init__(self, ID: str) -> Any:
+    def __init__(self, ID: str) -> None:
         self.ID = ID
-    
+
     @abstractclassmethod
     def process_batch(self, data_batch: List[Any]) -> str:
         return str(data)
