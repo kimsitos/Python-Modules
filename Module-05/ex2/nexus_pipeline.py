@@ -1,4 +1,4 @@
-from typing import Any, List, Dict
+from typing import Any, List
 
 
 # Processing Stages
@@ -39,7 +39,7 @@ class JSONAdapter(ProcessingPipeline):
     def __init__(self, stages: list, pipeline_id: str = "GenJSONID") -> None:
         super().__init__(pipeline_id, stages)
 
-    def process(self, data: Dict) -> None:
+    def process(self, data: Any) -> None:
         if (isinstance(data, dict) and
            'sensor' in data and 'value' in data and 'unit' in data):
             print(f"Processed {data['sensor']} reading: "
@@ -52,7 +52,7 @@ class CSVAdapter(ProcessingPipeline):
     def __init__(self, stages: list, pipeline_id: str = "GenCSVID") -> None:
         super().__init__(pipeline_id, stages)
 
-    def process(self, data: str) -> None:
+    def process(self, data: Any) -> None:
         values = 1
         if isinstance(data, str):
             for i in data:
@@ -128,4 +128,5 @@ print("Data flow: Raw -> Processed -> Analyzed -> Stored\n")
 
 i = 0
 for streampipe in all_streams:
-    nexus.process_pipeline(streampipe, all_data[1])
+    nexus.process_pipeline(streampipe, all_data[i])
+    i += 1
