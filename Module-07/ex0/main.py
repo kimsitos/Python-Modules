@@ -16,7 +16,6 @@ if playable:
     print("Play result:", Fire_Dragon.play(Fire_Dragon.get_card_info()))
 
 Goblin_Warrior = CreatureCard('Goblin Warrior', 2, 'Common', 1, 2)
-print(Goblin_Warrior.get_card_info())
 print(f"\n{Fire_Dragon.name} atttacks {Goblin_Warrior.name}")
 print("Attack result:", Fire_Dragon.attack_target(Goblin_Warrior))
 
