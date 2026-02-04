@@ -9,14 +9,14 @@ print("\nCreatureCard Info:")
 print(Fire_Dragon.get_card_info())
 
 mana_available = 6
-print(f"\nPlaying {Fire_Dragon.name} with {mana_available} mana available:")
+print(f"\nPlaying {Fire_Dragon._name} with {mana_available} mana available:")
 playable = Fire_Dragon.is_playable(mana_available)
 print("Playable:", playable)
 if playable:
     print("Play result:", Fire_Dragon.play(Fire_Dragon.get_card_info()))
 
 Goblin_Warrior = CreatureCard('Goblin Warrior', 2, 'Common', 1, 2)
-print(f"\n{Fire_Dragon.name} atttacks {Goblin_Warrior.name}")
+print(f"\n{Fire_Dragon._name} atttacks {Goblin_Warrior._name}")
 print("Attack result:", Fire_Dragon.attack_target(Goblin_Warrior))
 
 mana_available = 2

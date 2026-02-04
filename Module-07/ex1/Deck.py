@@ -32,7 +32,7 @@ class Deck:
         spell = 0
         total_mana = 0
         for card in self._cards:
-            total_mana += card.cost
+            total_mana += card._cost
             match type(card).__name__:
                 case 'CreatureCard':
                     creature += 1

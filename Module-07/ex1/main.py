@@ -19,7 +19,7 @@ print("\nDrawing and playing cards:")
 
 while decky._cards:
     card = decky.draw_card()
-    print("\nDrew:", card.name)
+    print("\nDrew:", card._name)
     print("Play result:", card.play('anything'))
 
 print("\nPolymorphism in action: Same interface, different card behaviors")
