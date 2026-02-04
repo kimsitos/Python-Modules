@@ -5,6 +5,7 @@ from ex0.Card import Card
 class CardFactory(ABC):
     def __init__(self):
         self.raritys = ['Common', 'Rare', 'Legendary']
+
     @abstractclassmethod
     def create_creature(self, name_or_power) -> Card:
         pass
