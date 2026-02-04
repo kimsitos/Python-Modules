@@ -7,7 +7,7 @@ class ArtifactCard(Card):
         super().__init__(name, cost, rarity)
         self._effect = effect
 
-    def play(self, game_state: dict) -> dict:
+    def play(self, game_state: dict = None) -> dict:
         return {
             'card_played': self._name,
             'mana_used': self._cost,

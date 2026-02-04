@@ -8,7 +8,7 @@ class SpellCard(Card):
             raise ValueError("Please, insert effect type")
         self._effect_type = effect_type
 
-    def play(self, game_state: dict) -> dict:
+    def play(self, game_state: dict = None) -> dict:
         return {
             'card_played': self._name,
             'mana_used': self._cost,

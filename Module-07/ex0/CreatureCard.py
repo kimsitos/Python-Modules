@@ -10,7 +10,7 @@ class CreatureCard(Card):
             raise ValueError("Health must be 1 or greater")
         self._health = health
 
-    def play(self, game_state: dict) -> dict:
+    def play(self, game_state: dict = None) -> dict:
         return {
             'card_played': self._name,
             'mana_used': self._cost,
