@@ -25,12 +25,25 @@ class Deck:
         card = self._cards[0]
         self._cards.remove(card)
         return card
-        pass
 
     def get_deck_stats(self) -> dict:
-        stats = {}
-        i = 0
+        creature = 0
+        artifact = 0
+        spell = 0
+        total_mana = 0
         for card in self._cards:
-            stats[i] = card.get_card_info()
-            i += 1
-        return stats
+            total_mana += card.cost
+            match type(card).__name__:
+                case 'CreatureCard':
+                    creature += 1
+                case 'ArtifactCard':
+                    artifact += 1
+                case 'SpellCard':
+                    spell += 1
+        return {
+            'total_cards': creature + artifact + spell,
+            'creatures': creature,
+            'spells': spell,
+            'artifacts': artifact,
+            'avg_cost': total_mana/(creature + artifact + spell)
+        }
