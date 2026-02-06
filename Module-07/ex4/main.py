@@ -19,6 +19,7 @@ print(f"\nIce Wizard (ID: {ice_wizard._name}):")
 print("- Interfaces: [Card, Combatable, Rankable]")
 print("- Rating:", ice_wizard._rating)
 print(f"- Record: {ice_wizard._wins}-{ice_wizard._losses}")
+ice_wizard._rating = 923
 
 tournament = TournamentPlataform()
 
@@ -31,7 +32,7 @@ print("Match result:", tournament.create_match('dragon_001', 'wizard_001'))
 print("\nTournament Leaderboard:")
 position = 1
 for card in tournament.get_leaderboard():
-    print(f"{position}. {card._name} - Rating: {card._rating}"
+    print(f"{position}. {card._name} - Rating: {card._rating} "
           f"({card._wins} - {card._losses})")
     position += 1
 

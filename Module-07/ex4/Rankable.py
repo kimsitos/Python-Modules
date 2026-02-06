@@ -1,9 +1,10 @@
 from abc import ABC, abstractclassmethod
+import random
 
 
 class Rankable(ABC):
     def __init__(self):
-        self._rating = 1000
+        self._rating = random.randint(600, 1000)
         self._wins = 0
         self._losses = 0
 

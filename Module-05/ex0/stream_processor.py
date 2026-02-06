@@ -2,7 +2,9 @@ from typing import Any
 from abc import ABC, abstractclassmethod
 
 
-# Class
+# -----------
+# Base Class
+# -----------
 class DataProcessor(ABC):
     @abstractclassmethod
     def process(self, data: Any) -> str:
@@ -145,4 +147,4 @@ for d in data:
     print(d.format_output(res))
     i += 1
 
-print("Foundation systems online. Nexus ready for advanced streams")
+print("\nFoundation systems online. Nexus ready for advanced streams")

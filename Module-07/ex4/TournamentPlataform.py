@@ -35,9 +35,9 @@ class TournamentPlataform:
 
         if card1._health > 0:
             card1.update_wins(1)
-            self._cards[card1_id] = card1
+            self._cards.update({card1_id: card1})
             card2.update_losses(1)
-            self._cards[card2_id] = card2
+            self._cards.update({card2_id: card2})
             return {
                 'winner': card1._name,
                 'loser': card2._name,
@@ -45,9 +45,9 @@ class TournamentPlataform:
                 'loser_rating': card2._rating,
             }
         card1.update_losses(1)
-        self._cards[card1_id] = card1
+        self._cards.update({card1_id: card1})
         card2.update_wins(1)
-        self._cards[card2_id] = card2
+        self._cards.update({card2_id: card2})
         return {
                 'winner': card2._name,
                 'loser': card1._name,
