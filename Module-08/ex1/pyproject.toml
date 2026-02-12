@@ -10,6 +10,7 @@ dependencies = [
     "pandas (<3.0)",
     "requests (>=2.32.5,<3.0.0)",
     "matplotlib (>=3.10.8,<4.0.0)",
+    "importlib (>=1.0.4,<2.0.0)",
 ]
 
 
