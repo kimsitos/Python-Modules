@@ -1,16 +1,16 @@
 from typing import Any
-from abc import ABC, abstractclassmethod
+from abc import ABC, abstractmethod
 
 
 # -----------
 # Base Class
 # -----------
 class DataProcessor(ABC):
-    @abstractclassmethod
+    @abstractmethod
     def process(self, data: Any) -> str:
         return str(data)
 
-    @abstractclassmethod
+    @abstractmethod
     def validate(self, data: Any) -> bool:
         if data == 'Error':
             return False

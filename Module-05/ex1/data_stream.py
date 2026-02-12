@@ -1,5 +1,5 @@
 from typing import List, Optional, Any, Dict, Union
-from abc import ABC, abstractclassmethod
+from abc import ABC, abstractmethod
 
 
 # Class
@@ -8,7 +8,7 @@ class DataStream(ABC):
         self.ID = ID
         self.data_read = 0
 
-    @abstractclassmethod
+    @abstractmethod
     def process_batch(self, data_batch: List[Any]) -> str:
         return "Good"
 
