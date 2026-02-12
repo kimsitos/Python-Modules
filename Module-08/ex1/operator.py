@@ -15,9 +15,6 @@ def fetch_matrix_data():
         "leaving": np.random.randint(100, size=12)
     }
     df = pd.DataFrame(matrix)
-    fd = open("test.txt", "w")
-    print(df, file=fd)
-    fd.close()
     return df
 
 
