@@ -1,8 +1,4 @@
 
-# -------------------
-# NECESITA REVISION
-# -------------------
-
 def process_events(num_events):
     id_event = 1
     players = ['alice', 'frank', 'bob', 'eve', 'diana', 'charlie']
