@@ -16,7 +16,7 @@ if not virtual_env:
     print("\nWARNING: You're in the global environment!"
           "\nThe machines can see everything you install."
           "\nTo enter the construct, run:"
-          "\npython -m venv matrix_env"
+          "\npython3 -m venv matrix_env"
           "\nsource matrix_env/bin/activate # On Unix"
           "\nmatrix_env"
           "\nScripts"
