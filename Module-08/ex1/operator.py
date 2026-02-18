@@ -1,35 +1,31 @@
-from importlib import import_module
-
-
 # ----------------
 # Matrix functions
 # ----------------
 def fetch_matrix_data():
     print("\nAnalyzing Matrix data...")
 
-    matrix = {
-        "month":
-            ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-             "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        "leaving": np.random.randint(100, size=12)
-    }
-    df = pd.DataFrame(matrix)
+    matrix = rq.get("https://pokeapi.co/api/v2/pokemon?&limit=100").json()
+
+    pokemon_name = []
+    pokemon_weight = []
+    for pokemon in matrix['results']:
+        pokemon_name.append(pokemon.get('name'))
+        pokemon_weight.append(rq.get(pokemon.get('url')).json().get('weight'))
+    df = pd.DataFrame({"name": pokemon_name, "weight": pokemon_weight})
     return df
 
 
 def generate_visualization(df):
     print("Generating visualization...")
-    month = df.get('month')
-    leaving = df.get('leaving')
-    if month is None or leaving is None:
-        print("Error. Please insert values for month and leaving")
-        exit(1)
+    pyplot.figure(figsize=(20, 8))
 
-    pyplot.plot(month, leaving, marker='o')
-    pyplot.xlabel("Months")
-    pyplot.ylabel("People leaving")
-    pyplot.title("People living Madrid in 20XX")
+    pyplot.bar(df.get('name'), df.get('weight'))
+    pyplot.xlabel("Pokemon name")
+    pyplot.ylabel("Wight(g)")
+    pyplot.title("Pokemons weight")
 
+    pyplot.xticks(rotation=60, fontsize=6)
+    pyplot.tight_layout()
     output_file = "matrix_analysis.png"
     pyplot.savefig(output_file)
     pyplot.close()
@@ -41,44 +37,40 @@ def generate_visualization(df):
 print("\nOPERATOR STATUS: Loading programs...")
 print("\nChecking dependencies:")
 
-# ------------
-# Get librarys
-# ------------
+if __name__ == '__main__':
+    """Panadas imported for analyze data"""
+    try:
+        import pandas as pd
+        print(f"[OK] {pd.__name__} ({pd.__version__}) - Data manipulation ready")
+    except ModuleNotFoundError as e:
+        pd = None
+        print("[ERROR]", e)
 
-"""Panadas imported for analyze data"""
-try:
-    pd = import_module('pandas')
-    print(f"[OK] {pd.__name__} ({pd.__version__}) - Data manipulation ready")
-except ModuleNotFoundError as e:
-    pd = None
-    print("[ERROR]", e)
+    """request for request the api"""
+    try:
+        import requests as rq
+        print(f"[OK] {rq.__name__} ({rq.__version__}) - Network access ready")
+    except ModuleNotFoundError as e:
+        rq = None
+        print("[ERROR]", e)
 
+    """matplotlib used for visualizationof data.
+    In this case used to work with pandas"""
+    try:
+        import matplotlib
+        import matplotlib.pyplot as pyplot
+        print(f"[OK] {matplotlib.__name__} ({matplotlib.__version__})"
+              f"- Visualization ready")
+    except ModuleNotFoundError as e:
+        pyplot = None
+        print("[ERROR]", e)
 
-try:
-    np = import_module('numpy')
-    print(f"[OK] {np.__name__} ({np.__version__}) - Network access ready")
-except ModuleNotFoundError as e:
-    np = None
-    print("[ERROR]", e)
-
-
-"""matplotlib used for visualizationof data.
-In this case used to work with pandas"""
-try:
-    pyplot = import_module('matplotlib')
-    print(f"[OK] {pyplot.__name__} ({pyplot.__version__})"
-          f"- Visualization ready")
-    pyplot = import_module('matplotlib.pyplot')
-except ModuleNotFoundError as e:
-    pyplot = None
-    print("[ERROR]", e)
-
-if pd and np and pyplot:
-    generate_visualization(fetch_matrix_data())
-else:
-    print("\n-- With poetry --"
-          "\npoetry install"
-          "\npoetry run python3 operator"
-          "\n\n-- With pip --"
-          "\npip install -r requirements.txt"
-          "\npython3 operator.py")
+    if pd and rq and pyplot:
+        generate_visualization(fetch_matrix_data())
+    else:
+        print("\n-- With poetry --"
+              "\npoetry install"
+              "\npoetry run python3 operator"
+              "\n\n-- With pip --"
+              "\npip install -r requirements.txt"
+              "\npython3 -m ex1.operator.py")

@@ -49,18 +49,14 @@ def read_env_var(set_result):
     return read_result
 
 
-"""
-=========
-EXECUTION
-=========
-"""
-set_result = set_env_var()
-read_result = read_env_var(set_result)
-print("\nEnvironment security check:")
-print("[OK] No hardcoded secrets detected")
-print("[OK] .env file properly configured" if set_result is True else
-      "[KO] .env fine is not properly configured")
-print("[OK] Production overrides available" if read_result is True else
-      "[KO] Production overrides unavaliable")
+if __name__ == '__main__':
+    set_result = set_env_var()
+    read_result = read_env_var(set_result)
+    print("\nEnvironment security check:")
+    print("[OK] No hardcoded secrets detected")
+    print("[OK] .env file properly configured" if set_result else
+          "[KO] .env fine is not properly configured")
+    print("[OK] Production overrides available" if read_result else
+          "[KO] Production overrides unavaliable")
 
-print("\nThe Oracle sees all configurations.")
+    print("\nThe Oracle sees all configurations.")
