@@ -74,7 +74,6 @@ def print_mission(mission: SpaceMission):
               f"{crew.get('specialization')}")
 
 
-
 if __name__ == '__main__':
     mission = SpaceMission(
         mission_id="M2024_TITAN",
