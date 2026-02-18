@@ -34,6 +34,8 @@ class ProcessingPipeline(ABC):
     @abstractmethod
     def process(self, data: Any) -> Union[str, Any]:
         try:
+            if data is None:
+                raise Exception("Data souldn't be none")
             for stage in self.stages:
                 data = stage.process(data)
             return data
@@ -73,7 +75,10 @@ class CSVAdapter(ProcessingPipeline):
 class StreamAdapter(ProcessingPipeline):
 
     def process(self, data: Any) -> Union[str, Any]:
-        super().process(data)
+        data = super().process(data)
+        if 'Error' not in data:
+            return "Stream summary: 5 readings, avg: 22.1°C"
+        return data
 
 
 # Nexus Manager

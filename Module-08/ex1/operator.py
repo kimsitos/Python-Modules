@@ -41,7 +41,8 @@ if __name__ == '__main__':
     """Panadas imported for analyze data"""
     try:
         import pandas as pd
-        print(f"[OK] {pd.__name__} ({pd.__version__}) - Data manipulation ready")
+        print(f"[OK] {pd.__name__} ({pd.__version__}) - "
+              f"Data manipulation ready")
     except ModuleNotFoundError as e:
         pd = None
         print("[ERROR]", e)
