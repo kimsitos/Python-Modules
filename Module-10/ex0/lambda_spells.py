@@ -1,0 +1,53 @@
+def artifact_sorter(artifacts: list[dict]) -> list[dict]:
+    return sorted(artifacts, key=lambda artifact: artifact.get('power'),
+                  reverse=True)
+
+
+def power_filter(mages: list[dict], min_power: int) -> list[dict]:
+    return [mage for mage in filter(
+        lambda mage: mage['power'] >= min_power, mages)]
+
+
+def spell_transformer(spells: list[str]) -> list[str]:
+    return [spell for spell in map(lambda spell: f"*{spell}*", spells)]
+
+
+def mage_stats(mages: list[dict]) -> dict:
+    return {
+        'max_power': max(lambda mages: [mage['power'] for mage in mages])
+    }
+
+
+artifacts = [
+    {'name': 'Crystal Orb', 'power': 85, 'type': 'armor'},
+    {'name': 'Light Prism', 'power': 74, 'type': 'relic'},
+    {'name': 'Fire Staff', 'power': 94, 'type': 'accessory'},
+    {'name': 'Crystal Orb', 'power': 82, 'type': 'accessory'}]
+
+mages = [
+    {'name': 'Morgan', 'power': 90, 'element': 'shadow'},
+    {'name': 'Luna', 'power': 95, 'element': 'ice'},
+    {'name': 'Zara', 'power': 80, 'element': 'water'},
+    {'name': 'Kai', 'power': 77, 'element': 'lightning'},
+    {'name': 'Phoenix', 'power': 76, 'element': 'lightning'}]
+
+spells = ['meteor', 'blizzard', 'freeze', 'tsunami']
+
+
+if __name__ == '__main__':
+    print("\nTesting artifact sorter...")
+    artifacts_filtered = artifact_sorter(artifacts)
+    print(f"{artifacts_filtered[0]['name']} "
+          f"({artifacts_filtered[0]['power']} power)", end='')
+    for art in artifacts_filtered[1::]:
+        print(f" comes before {art['name']} ({art['power']} power)", end='')
+    print()
+
+    print("\nTesting power_filter...")
+    print(power_filter(mages, 80))
+
+    print("\nTesting spell_transformer...")
+    print(spell_transformer(spells))
+
+    print("\nTesting mage_stats")
+    print(mage_stats(mages))
