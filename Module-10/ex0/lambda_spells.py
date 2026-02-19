@@ -14,7 +14,7 @@ def spell_transformer(spells: list[str]) -> list[str]:
 
 def mage_stats(mages: list[dict]) -> dict:
     return {
-        'max_power': max(lambda mages: [mage['power'] for mage in mages])
+        'max_power': max(mages, key=lambda mage: mage['power'])['power']
     }
 
 
