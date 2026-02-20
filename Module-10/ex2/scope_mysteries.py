@@ -29,11 +29,9 @@ def memory_vault() -> dict[str, callable]:
     vault = {}
 
     def store(key: str, value: int):
-        nonlocal vault
         vault.update({key: value})
 
     def recall(key: str):
-        nonlocal vault
         return vault.get(key)
 
     return {'store': store, 'recall': recall}
@@ -58,6 +56,6 @@ if __name__ == '__main__':
     print("\nTesting memory vault")
     mem_vault = memory_vault()
     mem_vault['store']('chips', 10)
-    mem_vault['store']('coins', 30)
     print('Chips value:', mem_vault['recall']('chips'))
+    mem_vault['store']('coins', 30)
     print('Coins value:', mem_vault['recall']('coins'))

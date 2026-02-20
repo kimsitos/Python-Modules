@@ -6,10 +6,10 @@ def spell_timer(func: callable) -> callable:
     @wraps(func)
     def wrap(*args, **kwargs) -> any:
         print(f"Casting {func.__name__}...")
-        start_time = time.perf_counter()
+        start_time = time.time()
         result = func(*args, **kwargs)
-        end_time = time.perf_counter()
-        print(f"Spell completed in {end_time - start_time:2f}")
+        end_time = time.time()
+        print(f"Spell completed in {end_time - start_time:2f} seconds")
         return result
 
     return wrap
@@ -41,11 +41,31 @@ def retry_spell(max_attempts: int) -> callable:
                 return func(*args, **kwargs)
             except Exception:
                 total_trys += 1
-                print(f"Spell failed, retrying... ({total_trys}/{max_attempts})")
+                print(f"Spell failed, retrying... "
+                      f"({total_trys}/{max_attempts})")
 
         return wrap
 
     return try_spell
+
+
+class MageGuild:
+    @staticmethod
+    def validate_mage_name(name: str) -> bool:
+        length_name = 0
+        for c in name:
+            if not ((c >= 'a' and c <= 'z') or
+                    (c >= 'A' and c <= 'Z') or c == ' '):
+                return False
+            length_name += 1
+        return True if length_name >= 3 else False
+
+    def cast_spell(self, spell_name: str, power: int) -> str:
+        @power_validator(10)
+        def spell_cast(power: int, spell_name: str) -> str:
+            return f"Successfully cast {spell_name} with {power} power"
+
+        return spell_cast(power, spell_name)
 
 
 if __name__ == '__main__':
@@ -94,6 +114,13 @@ if __name__ == '__main__':
         """cast helium spell"""
         return f"helium does {damage} of damage"
 
-
-
     print(f"\n{cast_helium(9)}")
+
+    print("\nTesting MageGuild...")
+
+    names = ['alb ert', 'pe', "\tmotomami"]
+    for name in names:
+        print(f"{name}:", MageGuild.validate_mage_name(name))
+
+    mage = MageGuild()
+    print(mage.cast_spell("iced", 15))
