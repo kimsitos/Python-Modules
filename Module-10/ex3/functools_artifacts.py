@@ -21,14 +21,32 @@ def partial_enchanter(base_enchantment: callable) -> dict[str, callable]:
     }
 
 
-@lru_cache(maxsize=128)
+@lru_cache
 def memoized_fibonacci(n: int) -> int:
     if n < 2:
         return n
     return memoized_fibonacci(n-1) + memoized_fibonacci(n-2)
 
 
-def spell_dispatcher() -> callable
+def spell_dispatcher() -> callable:
+
+    @singledispatch
+    def spell_default(spell) -> str:
+        return f"Unknown type: {spell}"
+
+    @spell_default.register(int)
+    def dmg_spell(spell) -> str:
+        return f"Spell does {spell} damage"
+
+    @spell_default.register(str)
+    def enchant_name(spell: str) -> str:
+        return f"Enchantment: {spell}"
+
+    @spell_default.register(list)
+    def multi_cast(spell: list) -> str:
+        return f"Casted: {spell}"
+
+    return spell_default
 
 
 if __name__ == '__main__':
@@ -49,8 +67,19 @@ if __name__ == '__main__':
     enchant = partial_enchanter(base_enchantment)
     for element in elements:
         print(enchant[element](target='Bunny'))
-    
+
     print("\nTesting memoized fibonacci...")
     fibonacci_tests = [20, 20, 11, 76, 57]
     for fib in fibonacci_tests:
         print(f"Fib({fib}):", memoized_fibonacci(fib))
+
+    print("\nTesting spell dispatcher...")
+    dispatch = spell_dispatcher()
+    spells_test_dispatcher = [
+        'tornado',
+        56,
+        ['magic', 'aqua', 'rain'],
+        {'heavy', 'poison'}
+        ]
+    for spell in spells_test_dispatcher:
+        print(dispatch(spell))

@@ -16,7 +16,8 @@ def mage_stats(mages: list[dict]) -> dict:
     return {
         'max_power': max(mages, key=lambda mage: mage['power'])['power'],
         'min_power': min(mages, key=lambda mage: mage['power'])['power'],
-        'avg_power': sum(map(lambda mage: mage['power'], mages)) / len(mages)
+        'avg_power': round(sum(
+            map(lambda mage: mage['power'], mages)) / len(mages), 2)
     }
 
 
@@ -28,8 +29,8 @@ if __name__ == '__main__':
         {'name': 'Crystal Orb', 'power': 82, 'type': 'accessory'}]
 
     mages = [
-        {'name': 'Morgan', 'power': 90, 'element': 'shadow'},
-        {'name': 'Luna', 'power': 95, 'element': 'ice'},
+        {'name': 'Morgan', 'power': 42, 'element': 'shadow'},
+        {'name': 'Luna', 'power': 23, 'element': 'ice'},
         {'name': 'Zara', 'power': 80, 'element': 'water'},
         {'name': 'Kai', 'power': 77, 'element': 'lightning'},
         {'name': 'Phoenix', 'power': 76, 'element': 'lightning'}]
