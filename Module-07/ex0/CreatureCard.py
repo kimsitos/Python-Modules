@@ -19,8 +19,7 @@ class CreatureCard(Card):
 
     def get_card_info(self) -> dict:
         info = super().get_card_info()
-        info['attack'] = self._attack
-        info['health'] = self._health
+        info.update({'attack': self._attack, 'health': self._health})
         return info
 
     def attack_target(self, target) -> dict:

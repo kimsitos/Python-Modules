@@ -1,15 +1,15 @@
-from abc import ABC, abstractclassmethod
+from abc import ABC, abstractmethod
 
 
 class GameStrategy(ABC):
-    @abstractclassmethod
+    @abstractmethod
     def execute_turn(self, hand: list, battlefield: list) -> dict:
         pass
 
-    @abstractclassmethod
+    @abstractmethod
     def get_strategy_name(self) -> str:
         return ''
 
-    @abstractclassmethod
+    @abstractmethod
     def prioritize_targets(self, available_targets: list) -> list:
         pass

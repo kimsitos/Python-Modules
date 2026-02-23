@@ -1,4 +1,4 @@
-from abc import ABC, abstractclassmethod
+from abc import ABC, abstractmethod
 
 
 class Card(ABC):
@@ -13,7 +13,7 @@ class Card(ABC):
             raise ValueError("Error. Every card must have rarity")
         self._rarity = rarity
 
-    @abstractclassmethod
+    @abstractmethod
     def play(self, game_state: dict) -> dict:
         pass
 

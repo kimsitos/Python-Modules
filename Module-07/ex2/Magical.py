@@ -1,15 +1,15 @@
-from abc import ABC, abstractclassmethod
+from abc import ABC, abstractmethod
 
 
 class Magical(ABC):
-    @abstractclassmethod
+    @abstractmethod
     def cast_spell(self, spell_name: str, targets: list) -> dict:
         pass
 
-    @abstractclassmethod
+    @abstractmethod
     def channel_mana(self, amount: int) -> dict:
         pass
 
-    @abstractclassmethod
+    @abstractmethod
     def get_magic_stats(self) -> dict:
         pass

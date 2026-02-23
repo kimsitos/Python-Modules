@@ -1,15 +1,15 @@
-from abc import ABC, abstractclassmethod
+from abc import ABC, abstractmethod
 
 
 class Combatable(ABC):
-    @abstractclassmethod
+    @abstractmethod
     def attack(self, target) -> dict:
         pass
 
-    @abstractclassmethod
+    @abstractmethod
     def defend(self, incoming_damage: int) -> dict:
         pass
 
-    @abstractclassmethod
+    @abstractmethod
     def get_combat_stats(self) -> dict:
         pass
